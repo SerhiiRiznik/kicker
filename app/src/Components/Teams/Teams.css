@@ -1,0 +1,32 @@
+.label {
+  text-align: end;
+  font-size: 1.2rem;
+  margin-top: 0.1rem;
+  display: block;
+  transition: all 0.3s;
+  transform: translateY(0rem);
+}
+
+.input-item {
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0 auto;
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  width: 90%;
+  display: block;
+  border-bottom: 0.1rem solid #ccc;
+  transition: all 0.3s;
+}
+.input-item:focus {
+  outline: none;
+}
+
+.input-item:placeholder-shown + .label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(-2rem);
+  transform: translateY(-2rem);
+}

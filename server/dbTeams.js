@@ -3,8 +3,9 @@ import mongoose from 'mongoose'
 
 
 const teamInfo = mongoose.Schema({
-    team: String,
-    info: String,
+    teamname: String,
+    firstplayername: String,
+    secondplayername: String,
 })
 
 export default mongoose.model('team',teamInfo)

@@ -9,8 +9,13 @@ const connectionUrl = 'mongodb+srv://admin:admin@cluster0.zb4er.mongodb.net/kick
 //Middleware
 
 app.use(express.json())
-
-
+  app.use(function (req, res, next) {
+    //Enabling CORS
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "content-type");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
+      next();
+    });
 //BD config
 //     ,{
 //     useNewUrlParser: true,
@@ -45,6 +50,18 @@ app.get('/teams',(req,res)=>{
             res.status(200).send(data)
         }
     })
+})
+app.delete('/teams/:id', (req, res) => {
+         
+    const id = req.params.id;
+    // const collection = req.app.locals.collection;
+    Teams.findOneAndDelete({_id: id}, function(err, result){
+               
+        if(err) return console.log(err);    
+        let info = result.value;
+        res.send(info);
+    });
+  res.send("DELETE Request Called")
 })
 
 //Listener

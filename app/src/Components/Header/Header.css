@@ -1,0 +1,7 @@
+.navItem {
+  text-decoration: none;
+  color: white;
+}
+.active {
+  color: #123;
+}
