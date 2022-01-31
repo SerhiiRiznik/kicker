@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import Teams from './dbTeams.js'
+import Players from './models/dbPlayers.js'
+import Teams from './models/dbTeams.js'
 
 //App Config
 const app = express()
@@ -31,9 +32,28 @@ app.get('/',(req,res)=>{
 
 app.post('/teams',(req,res)=>{
     const dbTeams = req.body
+    
 
 
     Teams.create(dbTeams,(err,data)=>{
+            Players.create({
+            player: dbTeams.secondplayername,
+            wins: 0,
+            lose: 0,
+        },(err,data)=>{
+            if (err){
+                res.status(500).send(err)
+            }
+        })
+        Players.create({
+        player: dbTeams.firstplayername,
+        wins: 0,
+        lose: 0,
+    },(err,data)=>{
+        if (err){
+            res.status(500).send(err)
+        }
+    })
         if (err){
             res.status(500).send(err)
         }else{
@@ -44,6 +64,15 @@ app.post('/teams',(req,res)=>{
 
 app.get('/teams',(req,res)=>{
     Teams.find((err,data)=>{
+        if (err){
+            res.status(500).send(err)
+        }else{
+            res.status(200).send(data)
+        }
+    })
+})
+app.get('/players',(req,res)=>{
+    Players.find((err,data)=>{
         if (err){
             res.status(500).send(err)
         }else{
